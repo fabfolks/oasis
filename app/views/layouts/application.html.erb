@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1 class='heading'> Oasis Vijaya Association Portal</h1>
+  <h1 class='heading'><%= link_to 'Oasis Vijaya Association Portal', '/', :class => 'link'%></h1>
 
 <% if member_signed_in? %>
   Logged in as <strong><%= current_member.email %></strong>.
