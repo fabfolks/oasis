@@ -13,10 +13,14 @@ describe MembersController do
 
   describe "GET index" do
     it "assigns all members as @members" do
-      member = FactoryGirl.create(:member)
-      sign_in member
+      house1 = FactoryGirl.create(:house)
+      house2 = FactoryGirl.create(:house, :name => 'other_house')
+      member1 = FactoryGirl.create(:member, :house => house1)
+      member2 = FactoryGirl.create(:member, :email => "foo#{rand(10)}@bar.com", :house => house1)
+      member3 = FactoryGirl.create(:member, :email => "foo#{rand(10)}@bar.com", :house => house2)
+      sign_in member1
       get :index
-      assigns(:members).should eq([member])
+      assigns(:members).should eq([member1, member2])
     end
   end
 

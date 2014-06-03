@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   before_filter :authenticate_member!
   def index
-    @member = Member.all.first
+    @members = current_member.house.members - Array.wrap(current_member)
     respond_to do |format|
       format.html
     end

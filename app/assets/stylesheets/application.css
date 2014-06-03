@@ -33,6 +33,17 @@ body {
   color: white;
 }
 
+.heading:hover {
+  padding: 40px;
+  width: 690px;
+  margin: 0 auto 20px;
+  border-radius: 2px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-size: 300%;
+  color: white;
+}
+
 .heading .link{
   text-decoration: none;
   color: black;
@@ -44,6 +55,7 @@ body {
   opacity: 1;
   background: url(wallpaper-22705.jpg) no-repeat center center fixed; 
 }
+
 .container {
   padding: 40px;
   width: 274px;

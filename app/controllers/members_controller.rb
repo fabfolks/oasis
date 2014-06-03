@@ -6,7 +6,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all
+    @members = current_member.house.members
 
     respond_to do |format|
       format.html # index.html.erb
