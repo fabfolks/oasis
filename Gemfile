@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'will_paginate', '~> 3.0'
 
 gem 'devise'
 group :development, :test do

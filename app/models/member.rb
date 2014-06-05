@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :sex, :contact_no, :role, :blood_group
   belongs_to :house
+  has_many :notifications
 
   def is_admin?
     self.role == 'admin'
