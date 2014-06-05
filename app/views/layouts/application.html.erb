@@ -2,22 +2,45 @@
 <html>
   <head>
     <title>Oasis Vijaya Association</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag    "bootstrap.min", :media => "all" %>
+    <%= javascript_include_tag "bootstrap.min" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <h1 class='heading'><%= link_to 'Oasis Vijaya Association Portal', '/', :class => 'link'%></h1>
+    <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Oasis Vijaya Association Portal</a>
+      </div>
 
-    <% if member_signed_in? %>
-      <div class='top-right-corner'>
-        Logged in as <strong><%= current_member.email %></strong>.
-        <%= link_to 'Edit profile', edit_member_registration_path, :class => 'link'%> |
-        <%= link_to "Logout", destroy_member_session_path, method: :delete, :class => 'link'%>
-      <% end %>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav"> </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <% if member_signed_in? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href='#'>Logged in as <%= current_member.email %></a></li>
+            <li><%= link_to 'Edit profile', edit_member_registration_path %></li>
+            <li><%= link_to 'Logout', destroy_member_session_path, :method => :delete %> </li>
+          </ul>
+        <% end %>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
+    <div class = 'container'>
+      <%= yield %>
     </div>
-
-    <%= yield %>
-
   </body>
 </html>
