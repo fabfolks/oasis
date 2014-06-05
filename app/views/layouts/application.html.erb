@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Oasis Vijaya Association</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <h1 class='heading'><%= link_to 'Oasis Vijaya Association Portal', '/', :class => 'link'%></h1>
+  <head>
+    <title>Oasis Vijaya Association</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <h1 class='heading'><%= link_to 'Oasis Vijaya Association Portal', '/', :class => 'link'%></h1>
 
-<% if member_signed_in? %>
-  Logged in as <strong><%= current_member.email %></strong>.
-  <%= link_to 'Edit profile', edit_member_registration_path%> |
-  <%= link_to "Logout", destroy_member_session_path, method: :delete%>
-<% end %>
+    <% if member_signed_in? %>
+      <div class='top-right-corner'>
+        Logged in as <strong><%= current_member.email %></strong>.
+        <%= link_to 'Edit profile', edit_member_registration_path, :class => 'link'%> |
+        <%= link_to "Logout", destroy_member_session_path, method: :delete, :class => 'link'%>
+      <% end %>
+    </div>
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+  </body>
 </html>
