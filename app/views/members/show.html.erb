@@ -1,30 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="list-group">
+  <a href='#' class="list-group-item list-group-item-info">
+    <h4><%= @member.name%></h4>
+  </a>
+  <div class="list-group-item">
+    <%= @member.sex%>
+  </div>
+  <div class="list-group-item">
+    <%= @member.contact_no%>
+  </div>
+  <div class="list-group-item">
+    <%= @member.email%>
+  </div>
+  <div class="list-group-item">
+    <%= @member.blood_group%>
+  </div>
 
-<p>
-  <b>Name:</b>
-  <%= @member.name %>
-</p>
-
-<p>
-  <b>Sex:</b>
-  <%= @member.sex %>
-</p>
-
-<p>
-  <b>Contact no:</b>
-  <%= @member.contact_no %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @member.email %>
-</p>
-
-<p>
-  <b>Blood group:</b>
-  <%= @member.blood_group %>
-</p>
-
-
-<%= link_to 'Edit', edit_member_path(@member) %> |
-<%= link_to 'Back', members_path %>
+  <% if current_member.can_edit?(@member)%>
+    <%= link_to 'Edit', edit_member_path(@member), :class=> 'list-group-item active' %>
+  <%end%>
+</div>

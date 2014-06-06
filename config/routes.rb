@@ -5,6 +5,7 @@ Oasis::Application.routes.draw do
   devise_for :members
 
   resources :members
+  resources :notifications
 
   root :to => 'home#index'
 

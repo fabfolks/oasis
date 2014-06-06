@@ -1,0 +1,14 @@
+<div class="panel panel-info">
+  <% @notifications.each do |notification|%>
+    <div class="panel-heading">
+      <%= notification.title%>
+    </div>
+    <div class="panel-body">
+      <%= notification.content%>
+    </div>
+  <% end %>
+  <div class='panel-footer'>
+    <%= link_to 'Create new notification', new_notification_path %>
+  </div>
+</div>
+<%= will_paginate%>

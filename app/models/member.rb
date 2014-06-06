@@ -17,4 +17,10 @@ class Member < ActiveRecord::Base
   def is_member_of?(house)
     self.house.name == house.name
   end
+
+  def can_edit?(member)
+    return true if self.id == member.id
+    return true if self.is_admin? and member.is_member_of?(self.house)
+    false
+  end
 end
