@@ -1,32 +1,10 @@
-<div class='container'>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= current_member.name %>
-</p>
-
-<p>
-  <b>Sex:</b>
-  <%= current_member.sex %>
-</p>
-
-<p>
-  <b>Contact no:</b>
-  <%= current_member.contact_no %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= current_member.email %>
-</p>
-
-<p>
-  <b>Blood group:</b>
-  <%= current_member.blood_group %>
-</p>
-
-
-<%= link_to 'Edit', edit_member_path(current_member) %> |
-<%= link_to 'Back', members_path %>
-</div>
+<% @notifications.each do |notification|%>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <%= notification.title%>
+    </div>
+    <div class="panel-body">
+      <%= notification.content%>
+    </div>
+  </div>
+<% end %>
