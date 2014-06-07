@@ -3,19 +3,24 @@
     <h4><%= @member.name%></h4>
   </a>
   <div class="list-group-item">
-    <%= @member.sex%>
+    <span class="label label-default"> Sex </span><%= @member.sex%>
   </div>
   <div class="list-group-item">
-    <%= @member.contact_no%>
+    <span class="label label-default"> Contact No </span><%= @member.contact_no%>
   </div>
   <div class="list-group-item">
-    <%= @member.email%>
+    <span class="label label-default"> Email </span><%= @member.email%>
   </div>
   <div class="list-group-item">
-    <%= @member.blood_group%>
+    <span class="label label-default"> Blood Group </span><%= @member.blood_group%>
   </div>
 
   <% if current_member.can_edit?(@member)%>
-    <%= link_to 'Edit', edit_member_path(@member), :class=> 'list-group-item active' %>
+    <div class='col-md-6'>
+      <%= link_to 'Edit', edit_member_path(@member), :class=> 'list-group-item list-group-item-info' %>
+    </div>
+    <div class='col-md-6'>
+      <%= link_to 'Delete', @member,:confirm => 'Are you sure?', :method => 'delete', :class=> 'list-group-item list-group-item-danger' %>
+    </div>
   <%end%>
 </div>

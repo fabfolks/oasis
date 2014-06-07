@@ -2,8 +2,9 @@ Oasis::Application.routes.draw do
 
   resources :houses
 
+  match "members/new" => 'members#new', :via => [:get]
+  match "members" => 'members#create', :via => [:post]
   devise_for :members
-
   resources :members
   resources :notifications
 
