@@ -41,7 +41,9 @@
     <%= f.label :blood_group %><br />
     <%= f.select :blood_group, %w(A+ A- O+ O- B+ B- AB+ AB-), :class => "form-control" %>
   </div>
-  <div class="col-sm-6 controls">
-    <%= f.submit @action, :class => 'form-control btn btn-primary' %>
+  <div class="btn-group btn-group-justified">
+    <div class='btn-group'>
+      <%= f.submit @action, :class => 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

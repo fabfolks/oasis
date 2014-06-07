@@ -2,6 +2,9 @@
   <% @notifications.each do |notification|%>
     <div class="panel-heading">
       <%= notification.title%>
+      <span class='label label-default pull-right'>
+        Created by: <%= notification.member.name%>
+      </span>
     </div>
     <div class="panel-body">
       <%= notification.content%>
