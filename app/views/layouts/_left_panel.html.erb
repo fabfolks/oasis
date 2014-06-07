@@ -1,0 +1,22 @@
+<div class='col-md-4'>
+  <div class='panel panel-info'>
+    <div class='panel-heading'>
+      <h3><%= current_member.house.name%></h3>
+    </div>
+    <div class='panel-body'>
+      <ul class="list-group">
+        <% @members.each do |member|%>
+          <li class="list-group-item">
+          <%= link_to member.name, member_path(member.id)%>
+          </li>
+        <% end %>
+        <% if current_member.is_admin? %>
+          <li class='list-group-item'>
+          <h4><%= link_to 'Create new member', new_member_path %></h4>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
