@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   belongs_to :house
   has_many :notifications, :dependent => :delete_all
   validates :name, :presence => true
+  self.per_page = 10
 
   def is_admin?
     self.role == 'admin'

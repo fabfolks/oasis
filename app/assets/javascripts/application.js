@@ -13,3 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//
+function executeQuery() {
+  $.ajax({
+    //url: '/index',
+    success: function(data) {
+      $('#notifications').load('/notifications #notificaitons')
+    }
+  });
+  setTimeout(executeQuery, 5);
+}
+
+$(document).ready(function() {
+  setTimeout(executeQuery, 5);
+});

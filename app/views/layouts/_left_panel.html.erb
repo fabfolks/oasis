@@ -5,7 +5,7 @@
     </div>
     <div class='panel-body'>
       <ul class="list-group">
-        <% @members.each do |member|%>
+        <% @my_members.each do |member|%>
           <li class="list-group-item">
           <%= link_to member.name, member_path(member.id)%>
           </li>
@@ -15,6 +15,9 @@
           <h4><%= link_to 'Create new member', new_member_path %></h4>
           </li>
         <% end %>
+          <li class='list-group-item'>
+          <h4><%= link_to 'Search Members', members_path %></h4>
+          </li>
       </ul>
     </div>
   </div>

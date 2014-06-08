@@ -1,0 +1,7 @@
+<%= form_for @search, :url => members_search_path, :html => {:method => :get} do |f| %>
+  <%= f.label :name_contains %>
+  <%= f.text_field :name_contains %><br />
+  <%= f.label :bloog_group_contains %>
+  <%= f.text_field :blood_group_contains %><br />
+  <%= f.submit %>
+<% end %>

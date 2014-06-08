@@ -6,7 +6,8 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = current_member.house.members
+    @search = Member.search(params[:search])
+    @members = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

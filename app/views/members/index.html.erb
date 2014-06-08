@@ -1,35 +1,28 @@
-<div class='container'>
-<h1>Listing members</h1>
+<%= form_for @search, :url => members_path, :html => {:method => :get}, :class => 'form-horizontal' do |f| %>
+  <div class="form-group">
+    <%= f.label :name_contains %>
+    <%= f.text_field :name_contains, :class => "form-control", :placeholder => "Name Contains" %><br />
+  </div>
+  <div class="form-group">
+    <%= f.label :blood_group %>
+    <%= f.select :blood_group_contains, %w(A+ A- O+ O- B+ B- AB+ AB-), :class => "form-control" %><br />
+  </div>
+  <div class="btn-group btn-group-justified">
+    <div class='btn-group'>
+      <%= f.submit 'Search', :class => 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Sex</th>
-    <th>Contact no</th>
-    <th>Role</th>
-    <th>Email</th>
-    <th>Blood group</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+</br>
+
+<div class='list-group'>
+  <h4>Results</h4>
+</div>
 
 <% @members.each do |member| %>
-  <tr>
-    <td><%= member.name %></td>
-    <td><%= member.sex %></td>
-    <td><%= member.contact_no %></td>
-    <td><%= member.role %></td>
-    <td><%= member.email %></td>
-    <td><%= member.blood_group %></td>
-    <td><%= link_to 'Show', member %></td>
-    <td><%= link_to 'Edit', edit_member_path(member) %></td>
-    <td><%= link_to 'Destroy', member, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <div class="list-group">
+    <%= link_to member.name, member_path(member), :class=> "list-group-item list-group-item-info" %>
+  </div>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Member', new_member_path %>
-</div>
+<%= will_paginate%>
