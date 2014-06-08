@@ -25,6 +25,7 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'devise'
 gem "meta_search"
+gem "paperclip", "~> 4.1"
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails'

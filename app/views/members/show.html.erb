@@ -1,18 +1,21 @@
 <div class="list-group">
-  <a href='#' class="list-group-item list-group-item-info">
-    <h4><%= @member.name%></h4>
-  </a>
-  <div class="list-group-item">
-    <span class="label label-default"> Sex </span><%= @member.sex%>
+  <div class="media">
+    <%= image_tag @member.avatar.url(:thumb), :class => 'media-object pull-left'%>
+    <div class="media-body list-group-item list-group-item-info">
+      <h4><%= @member.name%></h4>
+    </div>
   </div>
   <div class="list-group-item">
-    <span class="label label-default"> Contact No </span><%= @member.contact_no%>
+    <b>Sex:</b> <%= @member.sex%>
   </div>
   <div class="list-group-item">
-    <span class="label label-default"> Email </span><%= @member.email%>
+    <b>Contact No:</b><%= @member.contact_no%>
   </div>
   <div class="list-group-item">
-    <span class="label label-default"> Blood Group </span><%= @member.blood_group%>
+    <b> Email: </b><%= @member.email%>
+  </div>
+  <div class="list-group-item">
+    <b> Blood Group: </b><%= @member.blood_group%>
   </div>
 
   <% if current_member.can_edit?(@member)%>
