@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   before_filter :authenticate_member!
+  before_filter :check_owner, :only => [:edit, :update, :destroy]
   def index
     @notifications = Notification.page(params[:page]).order('created_at DESC')
     respond_to do |format|
@@ -13,6 +14,24 @@ class NotificationsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @member }
+    end
+  end
+
+  def edit
+    @notification = Notification.find(params[:id])
+  end
+
+  def update
+    @notification = Notification.find(params[:id])
+
+    respond_to do |format|
+      if @notification.update_attributes(params[:notification])
+        format.html { redirect_to @notification, notice: 'Notification was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @notification.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -36,5 +55,21 @@ class NotificationsController < ApplicationController
         format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @notification = Notification.find(params[:id])
+    @notification.destroy
+
+    respond_to do |format|
+      format.html { redirect_to notifications_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+  def check_owner
+    notification = Notification.find(params[:id])
+    redirect_to root_url, :notice => "You are not authorized to this action" unless notification.member_id == current_member.id
   end
 end

@@ -2,7 +2,7 @@
   <% @notifications.each do |notification|%>
     <div class="panel-heading">
       <% if notification.member_id == current_member.id%>
-      <%=link_to notification.title, notification_path(notification)%>
+      <%=link_to notification.title, edit_notification_path(notification)%>
     <%else%>
       <%= notification.title%>
     <% end %>
