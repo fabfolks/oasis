@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.0'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -27,6 +27,7 @@ gem 'devise'
 gem "meta_search"
 gem "paperclip", "~> 4.1"
 gem 'mysql', "~> 2.9.1"
+gem 'activerecord-mysql-adapter'
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails'
