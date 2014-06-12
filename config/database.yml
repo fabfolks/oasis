@@ -20,8 +20,8 @@ test:
 
 production:
   adapter: mysql2
-  database: portal
-  username: adminpVSuWRh
-  password: I9e8l3IE8NNC
+  database: "<%=ENV['OPENSHIFT_APP_NAME']%>"
+  username: "<%=ENV['OPENSHIFT_MYSQL_DB_USERNAME']%>"
+  password: "<%=ENV['OPENSHIFT_MYSQL_DB_PASSWORD']%>"
   host: <%= ENV['OPENSHIFT_MYSQL_DB_HOST']%>
   port: <%= ENV['OPENSHIFT_MYSQL_DB_PORT']%>
