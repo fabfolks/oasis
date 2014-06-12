@@ -19,7 +19,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  database: portal
+  username: adminxxhcXtF
+  password: dmVx6LRQc-cv
+  host: <%= ENV['OPENSHIFT_MYSQL_DB_HOST']%>
+  port: <%= ENV['OPENSHIFT_MYSQL_DB_PORT']%>
