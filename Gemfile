@@ -26,7 +26,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'devise'
 gem "meta_search"
 gem "paperclip", "~> 4.1"
-gem 'mysql', "~> 2.9.1"
+gem 'mysql2'
 gem 'activerecord-mysql-adapter'
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
