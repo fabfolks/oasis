@@ -9,20 +9,19 @@ class Member < ActiveRecord::Base
   attr_accessor :login
   belongs_to :house
   has_many :notifications, :dependent => :delete_all
+  before_validation {avatar.clear if @delete_image}
 
   has_attached_file :avatar, :styles => { :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_size :avatar, :less_than => 1.megabytes
   validates_attachment_content_type :avatar, :content_type => /\Aimage/
   validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpeg\Z/]
-  validates :name, :presence => true
-  validates :house_id, :presence => true
-  before_validation {avatar.clear if @delete_image}
+  validates :house_id, :presence => true, :on => :create
+  validates :role, :presence => true
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
-  validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true, :if => :email_changed?
-  validates_format_of :email, :with  => Devise.email_regexp, :allow_blank => true, :if => :email_changed?
+  validates :email, :uniqueness => {:case_sensitive => false}, :format => {:with  => Devise.email_regexp}, :allow_nil => true
   validates_presence_of :password, :on=>:create
   validates_confirmation_of :password, :on=>:create
-  validates_length_of :password, :within => Devise.password_length, :allow_blank => true
+  validates_length_of :password, :within => Devise.password_length, :on => :create
 
   self.per_page = 10
 
