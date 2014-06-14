@@ -44,15 +44,15 @@
   </div>
   <div class="form-group">
     <%= f.label :sex %><br />
-    <%= f.select :sex, %w(male female), :class => "form-control" %>
+    <%= f.select :sex, %w(male female), :include_blank => true, :class => "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :role %><br />
-    <%= f.select :role, %w(member admin), :class => "form-control" %>
+    <%= f.select :role, %w(member admin), :include_blank => true, :class => "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :blood_group %><br />
-    <%= f.select :blood_group, %w(A+ A- O+ O- B+ B- AB+ AB-), :class => "form-control" %>
+    <%= f.select :blood_group, %w(A+ A- O+ O- B+ B- AB+ AB-), :include_blank => true, :class => "form-control" %>
   </div>
   <div class="btn-group btn-group-justified">
     <div class='btn-group'>

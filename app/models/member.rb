@@ -5,7 +5,7 @@ class Member < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :sex, :contact_no, :role, :blood_group, :avatar, :delete_image, :login
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :sex, :contact_no, :role, :blood_group, :avatar, :delete_image, :login, :house_id
   attr_accessor :login
   belongs_to :house
   has_many :notifications, :dependent => :delete_all
@@ -15,6 +15,7 @@ class Member < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage/
   validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpeg\Z/]
   validates :name, :presence => true
+  validates :house_id, :presence => true
   before_validation {avatar.clear if @delete_image}
   validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true, :if => :email_changed?
