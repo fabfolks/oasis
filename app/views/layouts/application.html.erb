@@ -28,7 +28,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href='#'>Logged in as <%= current_member.email %></a></li>
             <li><%= link_to 'Edit profile', edit_member_path(current_member) %></li>
-            <li><%= link_to 'Cancel account', registration_path(:member), :method => :delete, :confirm => 'Are you sure?' %></li>
+            <li><%= link_to 'Cancel account', current_member, :method => :delete, :confirm => 'Are you sure?' %></li>
             <li><%= link_to 'Logout', destroy_member_session_path, :method => :delete %> </li>
           </ul>
         <% end %>

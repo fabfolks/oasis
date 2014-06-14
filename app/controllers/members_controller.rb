@@ -1,8 +1,7 @@
 class MembersController < ApplicationController
   before_filter :authenticate_member!
   before_filter :is_admin?, :only => [:create, :new]
-  before_filter :can_edit?, only: [:edit, :update]
-  before_filter :can_destroy?, :only => [:destroy]
+  before_filter :can_edit?, only: [:edit, :update, :destroy]
   # GET /members
   # GET /members.json
   def index
@@ -93,12 +92,6 @@ class MembersController < ApplicationController
      return if member.id == current_member.id
      return if member.is_member_of?(current_member.house) and current_member.is_admin?
      redirect_to new_member_session_path
-  end
-
-  def can_destroy?
-    member = Member.find(params[:id])
-    return if member.is_member_of?(current_member.house) and current_member.is_admin?
-    redirect_to new_member_session_path 
   end
 
   def is_admin?
