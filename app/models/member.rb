@@ -12,8 +12,8 @@ class Member < ActiveRecord::Base
   before_validation {avatar.clear if @delete_image}
 
   has_attached_file :avatar, :styles => { :thumb => "100x100>" }, :default_url => "/images/:style/missing.png",
-    :url => "/assets/members/:id/:style/:basename.:extension",
-    :path => ":rails_root/public/assets/members/:id/:style/:basename.:extension"
+    :url => "/assets/images/members/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/assets/images/members/:id/:style/:basename.:extension"
   validates_attachment_size :avatar, :less_than => 1.megabytes, :message => 'size should be <= 1MB'
   validates_attachment_content_type :avatar, :content_type => /\Aimage/, :message => 'Please upload an image file'
   validates_attachment_file_name :avatar, :matches => [/png|PNG\Z/, /jpeg|JPEG\Z/, /jpg|JPG\Z/], :message => 'valid extensions are png, jpg and jpeg'

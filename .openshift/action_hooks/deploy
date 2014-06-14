@@ -1,5 +1,5 @@
-STORED_ASSETS=$OPENSHIFT_DATA_DIR/assets
-LIVE_ASSETS=$OPENSHIFT_REPO_DIR/public/assets
+STORED_ASSETS=$OPENSHIFT_DATA_DIR/assets/images
+LIVE_ASSETS=$OPENSHIFT_REPO_DIR/public/assets/images
 
 # Ensure our stored assets directory exists
 if [ ! -d $STORED_ASSETS ]; then
