@@ -4,7 +4,7 @@ Oasis::Application.routes.draw do
 
   match "members/new" => 'members#new', :via => [:get]
   match "members" => 'members#create', :via => [:post]
-  devise_for :members
+  devise_for :members, :controllers => { :registrations => "registrations" }
   resources :members
   resources :notifications
 

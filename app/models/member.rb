@@ -2,11 +2,11 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :sex, :contact_no, :role, :blood_group, :avatar, :delete_image
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :sex, :contact_no, :role, :blood_group, :avatar, :delete_image, :login
+  attr_accessor :login
   belongs_to :house
   has_many :notifications, :dependent => :delete_all
 
@@ -16,8 +16,23 @@ class Member < ActiveRecord::Base
   validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpeg\Z/]
   validates :name, :presence => true
   before_validation {avatar.clear if @delete_image}
+  validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
+  validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true, :if => :email_changed?
+  validates_format_of :email, :with  => Devise.email_regexp, :allow_blank => true, :if => :email_changed?
+  validates_presence_of :password, :on=>:create
+  validates_confirmation_of :password, :on=>:create
+  validates_length_of :password, :within => Devise.password_length, :allow_blank => true
 
   self.per_page = 10
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
 
   def is_admin?
     self.role == 'admin'
@@ -39,5 +54,13 @@ class Member < ActiveRecord::Base
 
   def delete_image=(value)
     @delete_image  = !value.to_i.zero?
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.username || self.email
   end
 end

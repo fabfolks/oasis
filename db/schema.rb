@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140608102300) do
+ActiveRecord::Schema.define(:version => 20140614103416) do
 
   create_table "houses", :force => true do |t|
     t.string   "name"
@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(:version => 20140608102300) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "username"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
   add_index "members", ["reset_password_token"], :name => "index_members_on_reset_password_token", :unique => true
+  add_index "members", ["username"], :name => "index_members_on_username", :unique => true
 
   create_table "notifications", :force => true do |t|
     t.integer  "member_id"
