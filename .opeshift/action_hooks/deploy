@@ -1,10 +1,10 @@
-STORED_ASSETS="${OPENSHIFT_DATA_DIR}/assets"
-LIVE_ASSETS="${OPENSHIFT_REPO_DIR}/public/assets"
+STORED_ASSETS=$OPENSHIFT_DATA_DIR/assets
+LIVE_ASSETS=$OPENSHIFT_REPO_DIR/public/assets
 
 # Ensure our stored assets directory exists
 if [ ! -d $STORED_ASSETS ]; then
-echo " Creating permanent assets directory"
-mkdir "${STORED_ASSETS}"
+echo "Creating permanent assets directory"
+mkdir $STORED_ASSETS
 fi
 
 # Create symlink to stored assets unless we're uploading our own assets
