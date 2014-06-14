@@ -16,3 +16,4 @@
 .rvmrc
 tags
 /public/system/**/*
+/public/assets/**/*
