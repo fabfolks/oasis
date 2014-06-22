@@ -20,7 +20,7 @@ describe MembersController do
     end
 
     it "routes to #create" do
-      post("/members").should route_to("devise/registrations#create")
+      post("/members").should route_to("members#create")
     end
 
     it "routes to #update" do
