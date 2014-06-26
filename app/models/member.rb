@@ -19,11 +19,9 @@ class Member < ActiveRecord::Base
   validates_attachment_file_name :avatar, :matches => [/png|PNG\Z/, /jpeg|JPEG\Z/, /jpg|JPG\Z/], :message => 'valid extensions are png, jpg and jpeg'
   validates :house_id, :presence => true, :on => :create
   validates :role, :presence => true
-  validates :username, :presence => true, :uniqueness => { :case_sensitive => false }
-  validates :email, :uniqueness => {:case_sensitive => false}, :format => {:with  => Devise.email_regexp}, :allow_nil => true
-  validates_presence_of :password, :on=>:create
-  validates_confirmation_of :password, :on=>:create
-  validates_length_of :password, :within => Devise.password_length, :on => :create
+  validates :username, :uniqueness => { :case_sensitive => false }
+  validates :email, :uniqueness => {:case_sensitive => false}, :format => {:with  => Devise.email_regexp}, :allow_blank => true
+  validates :password, :confirmation => true, :length => {:within => Devise.password_length}, :allow_blank => true
 
   self.per_page = 10
 
