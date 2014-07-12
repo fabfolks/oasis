@@ -1,10 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="list-group">
+  <div class="list-group-item">
+    <b>House:</b> <b><%= @house.name%></b>
+  </div>
+  <div class="list-group-item">
+    <b>Area:</b> <%= @house.area%> sq ft
+  </div>
+  <div class="btn-group btn-group-justified">
+    <div class='btn-group'>
+      <%= link_to 'Edit', edit_house_path(@house), :class=> 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @house.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_house_path(@house) %> |
-<%= link_to 'Back', houses_path %>

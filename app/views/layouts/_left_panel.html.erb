@@ -1,7 +1,7 @@
 <div class='col-md-4'>
   <div class='panel panel-info'>
     <div class='panel-heading'>
-      <h3><%= current_member.house.name%></h3>
+      <h3><%= link_to current_member.house.name, house_path(current_member.house)%></h3>
     </div>
     <div class='panel-body'>
       <ul class="list-group">

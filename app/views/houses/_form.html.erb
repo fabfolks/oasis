@@ -1,21 +1,22 @@
-<%= form_for(@house) do |f| %>
+<%= form_for(@house, :class => 'form-horizontal') do |f| %>
   <% if @house.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@house.errors.count, "error") %> prohibited this house from being saved:</h2>
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
 
-      <ul>
       <% @house.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <div class ="alert alert-danger"><%= msg %></div>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :area %><br />
+    <%= f.text_field :area, :class => "form-control", :placeholder => "Area in Sq Ft"   %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="btn-group btn-group-justified">
+    <div class='btn-group'>
+      <%= f.submit @action, :class => 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>
+

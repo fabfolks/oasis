@@ -1,5 +1,4 @@
 class NotificationsController < ApplicationController
-  before_filter :authenticate_member!
   before_filter :check_owner, :only => [:edit, :update, :destroy]
   def index
     @notifications = Notification.page(params[:page]).order('created_at DESC')

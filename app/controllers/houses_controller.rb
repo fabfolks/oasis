@@ -1,4 +1,5 @@
 class HousesController < ApplicationController
+  before_filter :can_edit?, :except => [:index, :show]
   # GET /houses
   # GET /houses.json
   def index
@@ -21,36 +22,9 @@ class HousesController < ApplicationController
     end
   end
 
-  # GET /houses/new
-  # GET /houses/new.json
-  def new
-    @house = House.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @house }
-    end
-  end
-
   # GET /houses/1/edit
   def edit
     @house = House.find(params[:id])
-  end
-
-  # POST /houses
-  # POST /houses.json
-  def create
-    @house = House.new(params[:house])
-
-    respond_to do |format|
-      if @house.save
-        format.html { redirect_to @house, notice: 'House was successfully created.' }
-        format.json { render json: @house, status: :created, location: @house }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @house.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /houses/1
@@ -71,13 +45,10 @@ class HousesController < ApplicationController
 
   # DELETE /houses/1
   # DELETE /houses/1.json
-  def destroy
-    @house = House.find(params[:id])
-    @house.destroy
+  private
 
-    respond_to do |format|
-      format.html { redirect_to houses_url }
-      format.json { head :no_content }
-    end
+  def can_edit?
+    house = House.find(params[:id])
+    redirect_to '/404.html' unless current_member.is_member_of?(house) and current_member.is_admin?
   end
 end

@@ -30,131 +30,106 @@ describe HousesController do
   # HousesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before :each do
+    @house = FactoryGirl.create(:house, :name => "house1")
+    @admin_member = FactoryGirl.create(:member, :email => "foo1@bar.com", :username => "foo1", :house => @house, :name => 'test1', :role => 'admin')
+    @non_admin_member = FactoryGirl.create(:member, :email => "foo2@bar.com", :username => "foo2", :house => @house, :name => 'test1')
+    @other_house = FactoryGirl.create(:house, :name => "house2")
+    @other_house_member = FactoryGirl.create(:member, :email => "foo3@bar.com", :username => "foo3", :house => @other_house, :name => 'test1', :role => 'admin')
+  end
+
   describe "GET index" do
-    it "assigns all houses as @houses" do
-      house = House.create! valid_attributes
+    it "assigns all houses as @houses for admin" do
+      sign_in @admin_member
+      get_index_validations
+    end
+
+    it "assigns all houses as @houses for non-admin" do
+      sign_in @non_admin_member
+      get_index_validations
+    end
+
+    def get_index_validations
       get :index, {}, valid_session
-      assigns(:houses).should eq([house])
+      assigns(:houses).should eq([@house, @other_house])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested house as @house" do
-      house = House.create! valid_attributes
-      get :show, {:id => house.to_param}, valid_session
-      assigns(:house).should eq(house)
+    it "assigns the requested house as @house for admin" do
+      sign_in @admin_member
+      get_show_validations
     end
-  end
 
-  describe "GET new" do
-    it "assigns a new house as @house" do
-      get :new, {}, valid_session
-      assigns(:house).should be_a_new(House)
+    it "assigns the requested house as @house for non-admin" do
+      sign_in @non_admin_member
+      get_show_validations
+    end
+
+    def get_show_validations
+      get :show, {:id => @house.to_param}, valid_session
+      assigns(:house).should eq(@house)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested house as @house" do
-      house = House.create! valid_attributes
-      get :edit, {:id => house.to_param}, valid_session
-      assigns(:house).should eq(house)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new House" do
-        expect {
-          post :create, {:house => valid_attributes}, valid_session
-        }.to change(House, :count).by(1)
-      end
-
-      it "assigns a newly created house as @house" do
-        post :create, {:house => valid_attributes}, valid_session
-        assigns(:house).should be_a(House)
-        assigns(:house).should be_persisted
-      end
-
-      it "redirects to the created house" do
-        post :create, {:house => valid_attributes}, valid_session
-        response.should redirect_to(House.last)
-      end
+    it "assigns the requested house as @house for admin" do
+      sign_in @admin_member
+      get :edit, {:id => @house.to_param}, valid_session
+      assigns(:house).should eq(@house)
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved house as @house" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        House.any_instance.stub(:save).and_return(false)
-        post :create, {:house => { "name" => "invalid value" }}, valid_session
-        assigns(:house).should be_a_new(House)
-      end
+    it "redirect to 404 for non-admin" do
+      sign_in @non_admin_member
+      get :edit, {:id => @house.to_param}, valid_session
+      response.should redirect_to '/404.html'
+    end
 
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        House.any_instance.stub(:save).and_return(false)
-        post :create, {:house => { "name" => "invalid value" }}, valid_session
-        response.should render_template("new")
-      end
+    it "redirect to 404 for other house member" do
+      sign_in @other_house_member
+      get :edit, {:id => @house.to_param}, valid_session
+      response.should redirect_to '/404.html'
     end
   end
 
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested house" do
-        house = House.create! valid_attributes
-        # Assuming there are no other houses in the database, this
-        # specifies that the House created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        House.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
-        put :update, {:id => house.to_param, :house => { "name" => "MyString" }}, valid_session
+    describe "admin" do
+      before :each do
+        sign_in @admin_member
       end
 
-      it "assigns the requested house as @house" do
-        house = House.create! valid_attributes
-        put :update, {:id => house.to_param, :house => valid_attributes}, valid_session
-        assigns(:house).should eq(house)
-      end
+      describe "with valid params" do
+        it "updates the requested house for admin" do
+          House.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
+          put :update, {:id => @house.to_param, :house => { "name" => "MyString" }}, valid_session
+        end
 
-      it "redirects to the house" do
-        house = House.create! valid_attributes
-        put :update, {:id => house.to_param, :house => valid_attributes}, valid_session
-        response.should redirect_to(house)
+        it "assigns the requested house as @house" do
+          put :update, {:id => @house.to_param, :house => valid_attributes}, valid_session
+          assigns(:house).should eq(@house)
+        end
+
+        it "redirects to the house" do
+          put :update, {:id => @house.to_param, :house => valid_attributes}
+          response.should redirect_to(@house)
+        end
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the house as @house" do
-        house = House.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        House.any_instance.stub(:save).and_return(false)
-        put :update, {:id => house.to_param, :house => { "name" => "invalid value" }}, valid_session
-        assigns(:house).should eq(house)
+    describe "non-admin" do
+      it "should redirect to 404" do
+        sign_in @non_admin_member
+        put :update, {:id => @house.to_param, :house => { "name" => "MyString" }}, valid_session
+        response.should redirect_to('/404.html')
       end
+    end
 
-      it "re-renders the 'edit' template" do
-        house = House.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        House.any_instance.stub(:save).and_return(false)
-        put :update, {:id => house.to_param, :house => { "name" => "invalid value" }}, valid_session
-        response.should render_template("edit")
+    describe "other house member" do
+      it "should redirect to 404" do
+        sign_in @other_house_member
+        put :update, {:id => @house.to_param, :house => { "name" => "MyString" }}, valid_session
+        response.should redirect_to('/404.html')
       end
     end
   end
-
-  describe "DELETE destroy" do
-    it "destroys the requested house" do
-      house = House.create! valid_attributes
-      expect {
-        delete :destroy, {:id => house.to_param}, valid_session
-      }.to change(House, :count).by(-1)
-    end
-
-    it "redirects to the houses list" do
-      house = House.create! valid_attributes
-      delete :destroy, {:id => house.to_param}, valid_session
-      response.should redirect_to(houses_url)
-    end
-  end
-
 end

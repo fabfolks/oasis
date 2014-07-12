@@ -1,5 +1,4 @@
 class MembersController < ApplicationController
-  before_filter :authenticate_member!
   before_filter :is_admin?, :only => [:create, :new]
   before_filter :can_edit?, only: [:edit, :update, :destroy]
   # GET /members
