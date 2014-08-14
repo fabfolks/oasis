@@ -5,7 +5,8 @@ class Member < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :authentication_keys => [:login]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :sex, :contact_no, :role, :blood_group, :avatar, :delete_image, :login, :house_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :name, :sex, :contact_no,
+    :role, :blood_group, :avatar, :delete_image, :login, :house_id, :date_of_birth, :wedding_anniversary
   attr_accessor :login
   belongs_to :house
   has_many :notifications, :dependent => :delete_all
@@ -19,9 +20,10 @@ class Member < ActiveRecord::Base
   validates_attachment_file_name :avatar, :matches => [/png|PNG\Z/, /jpeg|JPEG\Z/, /jpg|JPG\Z/], :message => 'valid extensions are png, jpg and jpeg'
   validates :house_id, :presence => true, :on => :create
   validates :role, :presence => true
+  validates :name, :presence => true
   validates :username, :uniqueness => { :case_sensitive => false }
-  validates :email, :uniqueness => {:case_sensitive => false}, :format => {:with  => Devise.email_regexp}, :allow_blank => true
-  validates :password, :confirmation => true, :length => {:within => Devise.password_length}, :allow_blank => true
+  validates :email, :uniqueness => {:case_sensitive => false}, :format => {:with  => Devise.email_regexp}, :allow_nil => true
+  validates :password, :confirmation => true, :length => {:within => Devise.password_length}, :allow_nil => true
 
   self.per_page = 10
 

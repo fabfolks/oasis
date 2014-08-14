@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require_tree .
 //
 function executeQuery() {
@@ -21,9 +24,9 @@ function executeQuery() {
       $('#notifications').load('/notifications #notificaitons')
     }
   });
-  setTimeout(executeQuery, 5);
+  setTimeout(executeQuery, 1000);
 }
 
 $(document).ready(function() {
-  setTimeout(executeQuery, 5);
+  setTimeout(executeQuery, 1000);
 });

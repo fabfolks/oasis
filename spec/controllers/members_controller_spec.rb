@@ -76,14 +76,16 @@ describe MembersController do
         member = FactoryGirl.create(:member, :role => 'admin', :house => @house)
         sign_in member
         expect {
-          post :create, {:member => {:email => "foo#{rand(RANDOMNESS)}@bar.com", :password => 'password', :password_confirmation => 'password', :username => "foo#{rand(RANDOMNESS)}", :role => "foo"}}
+          post :create, {:member => {:email => "foo#{rand(RANDOMNESS)}@bar.com", :password => 'password', :password_confirmation => 'password',
+                                     :username => "foo#{rand(RANDOMNESS)}", :role => "foo", :name => "bar"}}
         }.to change(Member, :count).by(1)
       end
 
       it "assigns a newly created member as @member" do
         member = FactoryGirl.create(:member, :role => 'admin', :house => @house)
         sign_in member
-        post :create, {:member => {:email => "foo#{rand(RANDOMNESS)}@bar.com", :password => 'password', :password_confirmation => 'password', :username => 'foo123', :role => 'admin'}}
+        post :create, {:member => {:email => "foo#{rand(RANDOMNESS)}@bar.com", :password => 'password', :password_confirmation => 'password',
+                                   :username => 'foo123', :role => 'admin', :name => 'bar'}}
         assigns(:member).should be_a(Member)
         assigns(:member).should be_persisted
       end

@@ -1,64 +1,56 @@
 <%= form_for(@member, :class => 'form-horizontal') do |f| %>
   <% if @member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+  <div id="error_explanation">
+  <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
 
-      <% @member.errors.full_messages.each do |msg| %>
-        <div class ="alert alert-danger"><%= msg %></div>
-      <% end %>
-    </div>
+  <% @member.errors.full_messages.each do |msg| %>
+    <div class ="alert alert-danger"><%= msg %></div>
+<% end %>
+</div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :avatar%>
-    <% if @member.avatar.exists? %>
-      <%= image_tag(@member.avatar.url(:thumb))%>
-    <%end%>
-    <%= f.file_field :avatar%>
-    <%= f.check_box :delete_image%> <b>Delete Image</b>
-  </div>
+<div class="form-group">
+  <%= f.label :avatar%>
+  <% if @member.avatar.exists? %>
+    <%= image_tag(@member.avatar.url(:thumb))%>
+<%end%>
+  <%= f.file_field :avatar%>
+  <%= f.check_box :delete_image%> <b>Delete Image</b>
+</div>
 
+<div class="form-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, :value => @member.name, :class => "form-control", :placeholder => "Full Name"%>
+</div>
+<div class="form-group">
+  <%= f.label :contact_no %><br />
+  <%= f.text_field :contact_no, :value => @member.contact_no, :class => "form-control", :placeholder => "Phone No"  %>
+</div>
+<div class="form-group">
+  <%= f.label :date_of_birth %>
+  <input data-behaviour="datepicker" id="member_date_of_birth" name="member[date_of_birth]" value=<%= @member.date_of_birth %> type="text">
+</div>
+<div class="form-group">
+  <%= f.label :wedding_anniversary %>
+  <input data-behaviour="datepicker" id="member_wedding_anniversary" name="member[wedding_anniversary]" value=<%= @member.wedding_anniversary %> type="text">
+</div>
+<div class="form-group">
+  <%= f.label :sex %><br />
+  <%= f.select :sex, %w(male female), :include_blank => true, :class => "form-control" %>
+</div>
+<% if current_member.is_admin?%>
   <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => "form-control", :placeholder => "Full Name"%>
-  </div>
-  <div class="form-group">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, :class => "form-control", :placeholder => "Username"   %>
-  </div>
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.text_field :email, :class => "form-control", :placeholder => "Email"   %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, :class => "form-control", :placeholder => "Password" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Confirm Password" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :contact_no %><br />
-    <%= f.text_field :contact_no, :class => "form-control", :placeholder => "Phone No"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :sex %><br />
-    <%= f.select :sex, %w(male female), :include_blank => true, :class => "form-control" %>
-  </div>
-  <% if current_member.is_admin?%>
-    <div class="form-group">
-      <%= f.label :role %><br />
-      <%= f.select :role, %w(member admin), :include_blank => true, :class => "form-control" %>
-    </div>
+  <%= f.label :role %><br />
+  <%= f.select :role, %w(member admin), :include_blank => true, :class => "form-control" %>
+</div>
   <% end %>
-  <div class="form-group">
-    <%= f.label :blood_group %><br />
-    <%= f.select :blood_group, %w(A+ A- O+ O- B+ B- AB+ AB-), :include_blank => true, :class => "form-control" %>
+<div class="form-group">
+  <%= f.label :blood_group %><br />
+  <%= f.select :blood_group, %w(A+ A- O+ O- B+ B- AB+ AB-), :include_blank => true, :class => "form-control" %>
+</div>
+<div class="btn-group btn-group-justified">
+  <div class='btn-group'>
+    <%= f.submit @action, :class => 'btn btn-primary' %>
   </div>
-  <div class="btn-group btn-group-justified">
-    <div class='btn-group'>
-      <%= f.submit @action, :class => 'btn btn-primary' %>
-    </div>
-  </div>
+</div>
 <% end %>
