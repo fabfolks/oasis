@@ -28,11 +28,11 @@
 </div>
 <div class="form-group">
   <%= f.label :date_of_birth %>
-  <input data-behaviour="datepicker" id="member_date_of_birth" name="member[date_of_birth]" value=<%= @member.date_of_birth %> type="text">
+  <%= f.text_field :date_of_birth, :value => @member.date_of_birth, 'data-behaviour' => 'datepicker', :placeholder => "DD/MM/YYYY"%>
 </div>
 <div class="form-group">
   <%= f.label :wedding_anniversary %>
-  <input data-behaviour="datepicker" id="member_wedding_anniversary" name="member[wedding_anniversary]" value=<%= @member.wedding_anniversary %> type="text">
+  <%= f.text_field :wedding_anniversary, :value => @member.wedding_anniversary, 'data-behaviour' => 'datepicker', :placeholder => "DD/MM/YYYY"%>
 </div>
 <div class="form-group">
   <%= f.label :sex %><br />
