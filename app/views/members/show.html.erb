@@ -20,9 +20,13 @@
   <div class="list-group-item">
     <b> Blood Group: </b><%= @member.blood_group%>
 </div>
-  <div class="list-group-item">
+
+  <% if @member.wedding_anniversary %>
+    <div class="list-group-item">
     <b> Date Of Birth: </b><%= @member.date_of_birth.strftime("%d/%m/%Y")%>
 </div>
+<% end %>
+
   <% if @member.wedding_anniversary %>
     <div class="list-group-item">
     <b> Wedding Anniversary: </b><%= @member.wedding_anniversary.strftime("%d/%m/%Y") %>
