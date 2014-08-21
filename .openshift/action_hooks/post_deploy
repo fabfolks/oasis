@@ -1,0 +1,3 @@
+echo Now compiling assets the right way
+cd $OPENSHIFT_REPO_DIR
+bundle exec rake assets:precompile RAILS_ENV=production FORCE_ASSET_PRECOMPILE=true

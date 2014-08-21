@@ -48,6 +48,11 @@ Oasis::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( *.js *.css )
 
+  if ENV['FORCE_ASSET_PRECOMPILE'].nil? || ENV['FORCE_ASSET_PRECOMPILE'] != 'true'
+    puts "Skipping precompile: FORCE_ASSET_PRECOMPILE='#{ENV['FORCE_ASSET_PRECOMPILE']}'"
+    config.assets.precompile = []
+  end
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
