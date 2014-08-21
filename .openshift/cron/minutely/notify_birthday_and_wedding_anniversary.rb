@@ -1,8 +1,13 @@
-require "#{File.expand_path(File.dirname(__FILE__))}/../config/environment"
+#!/usr/bin/ruby
 
-logger = Logger.new("#{File.expand_path(File.dirname(__FILE__))}/../log/cron.log")
+require "#{File.expand_path(File.dirname(__FILE__))}/../../../config/environment"
+
+logger = Logger.new("#{File.expand_path(File.dirname(__FILE__))}/../../../log/cron.log")
+
+logger.info "Running cron..."
 
 oasis_vijaya_assoc = Member.find_by_name("Oasis Vijaya Association")
+
 
 Member.find(:all).each do |member|
   next unless member.date_of_birth
